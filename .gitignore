@@ -45,3 +45,12 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+
+/mOCCT/mOCCT/Debug/
+/mOCCT/mOCCT/Release/
+/mOCCT/mOCCT/res/
+/mOCCT/mOCCT/x64/
+/mOCCT/x64/
+/mOCCT/Debug/
+.VS
+.vs

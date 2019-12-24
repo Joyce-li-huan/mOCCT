@@ -1,0 +1,7 @@
+//////////////////////////////////////////////////////////////////////////
+//
+#pragma once
+
+#include "fitting.h"
+
+void GMATH_API plane_fitting_SVD(const MAT& sp, VEC& s);
