@@ -58,10 +58,10 @@ BEGIN_MESSAGE_MAP(CmOCCTDoc, CDocument)
 	ON_COMMAND(ID_DRAW_32815, &CmOCCTDoc::OnDraw32815)
 	ON_COMMAND(ID_DRAW_32817, &CmOCCTDoc::OnDraw32817)
 	ON_COMMAND(ID_DRAW_32819, &CmOCCTDoc::OnDraw32819)
-	ON_COMMAND(ID_32830, &CmOCCTDoc::On32830)
 	ON_COMMAND(ID_32831, &CmOCCTDoc::On32831)
 	ON_COMMAND(ID_32832, &CmOCCTDoc::On32832)
 	ON_COMMAND(ID_32833, &CmOCCTDoc::On32833)
+	
 END_MESSAGE_MAP()
 
 
@@ -730,40 +730,7 @@ void CmOCCTDoc::OnDraw32819()
 */
 }
 
-//显示测试头坐标点
-void CmOCCTDoc::On32830()
-{
-	int aWidth, aHeight;
-	m_3dView->Window()->Size(aWidth,aHeight);
-	
-	myViewer->Redraw();
 
-	//Handle(AIS_InteractiveContext) theContext;
-	//Handle(AIS_InteractiveObject) theInterObj;
-	//Standard_Integer andId = 3;
-	//myViewer->AddZLayer(andId);
-	//theContext->SetZLayer(theInterObj,andId);
-
-	//Graphic3d_ZLayerSettings aSettings=myViewer->ZLayerSettings(andId);
-	//aSettings.SetEnableDepthTest(true);
-	//aSettings.SetEnableDepthWrite(true);
-	//aSettings.SetClearDepth(true);
-	//aSettings.SetPolygonOffset(Graphic3d_PolygonOffset());
-	//myViewer->SetZLayerSettings(andId,aSettings);
-
-	//Handle(Graphic3d_ArrayOfPoints) anArray = new Graphic3d_ArrayOfPoints(theVerticiesMaxCount);
-	//// add vertices to the array 
-	//anArray->AddVertex(10.0, 10.0, 10.0);
-	//anArray->AddVertex(0.0, 10.0, 10.0);
-	//// add the array to the structure 
-	//Handle(Graphic3d_Group) aGroup = myViewer->NewGroup();
-	//aGroup->AddPrimitiveArray(anArray);
-	//aGroup->SetGroupPrimitivesAspect(myDrawer->PointAspect()->Aspect());
-
-
-
-
-}
 
 //继承窗口Template
 void CmOCCTDoc::On32831()
@@ -783,3 +750,4 @@ void CmOCCTDoc::On32833()
 {
 
 }
+

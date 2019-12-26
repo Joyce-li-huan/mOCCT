@@ -41,12 +41,15 @@ public:
 	Standard_Integer               myYmin;
 	Standard_Integer               myXmax;
 	Standard_Integer               myYmax;
+	Handle(AIS_InteractiveContext) m_context;
+
 	void FitAll()
 	{
 		if (!myView.IsNull()) myView->FitAll();  myView->ZFitAll();
 	};
 
-	
+	TopoDS_Shape  MakeBottle(const Standard_Real myWidth, const Standard_Real myHeight,
+		const Standard_Real myThickness);
 
 #ifdef _DEBUG
 	virtual void AssertValid() const;
@@ -100,7 +103,10 @@ public:
 	afx_msg void OnMydllBasic();
 	afx_msg void OnMydllCircle2d();
 	afx_msg void On32829();
+
 	afx_msg void On32830();
+
+	afx_msg void On32834();
 };
 
 #ifndef _DEBUG  // mOCCTView.cpp 中的调试版本
