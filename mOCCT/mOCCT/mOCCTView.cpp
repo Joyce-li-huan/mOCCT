@@ -66,6 +66,7 @@ BEGIN_MESSAGE_MAP(CmOCCTView, CView)
 	ON_COMMAND(ID_32830, &CmOCCTView::On32830)
 
 	ON_COMMAND(ID_32834, &CmOCCTView::On32834)
+	ON_COMMAND(ID_32835, &CmOCCTView::On32835)
 END_MESSAGE_MAP()
 
 // CmOCCTView 构造/析构
@@ -566,60 +567,51 @@ void CmOCCTView::OnMydllCircle2d()
 //测试头
 void CmOCCTView::On32830()
 {
-	double m_fRadius = 100;
-	double m_ProbePoleDiameter = 80.0;
-	double m_ProbePoleLength = 500.0;
+	double m_fRadius = 10;
+	double m_ProbePoleDiameter = 8.0;
+	double m_ProbePoleLength = 20.0;
 	Graphic3d_MaterialAspect myRubyMat;
-
-	Quantity_Color amb(0.2225, 0.135, 0.1575, Quantity_TOC_RGB);
-	Quantity_Color dif(0.89, 0.54, 0.63, Quantity_TOC_RGB);
-	Quantity_Color spe(0.316228, 0.316228, 0.316228, Quantity_TOC_RGB);
-
-
-	myRubyMat.SetAmbientColor(amb);
-	myRubyMat.SetDiffuseColor(dif);
-	myRubyMat.SetSpecularColor(spe);
-	myRubyMat.SetAmbient(0.4);
-	myRubyMat.SetDiffuse(0.65);
-	myRubyMat.SetSpecular(0.7);
-	myRubyMat.SetMaterialType(Graphic3d_MATERIAL_ASPECT);
-
-	Standard_Real s(0.1);
-	myRubyMat.SetShininess(s);
-
 
 	Handle(AIS_InteractiveContext)ais_context = ((CmOCCTDoc*)GetDocument())->GetAISContext();
 
 	Handle(AIS_Shape)	mySphere;
-	Handle(AIS_Shape)	myCylinder;
+	Handle(AIS_Shape)	myCylinder1;
+	Handle(AIS_Shape)	myCylinder2;
+	Handle(AIS_Shape)	myCylinder3;
+	Handle(AIS_Shape)	myCone1;
+	Handle(AIS_Shape)	myCone2;
 
-	//// sphere
+
+	//球
 	TopoDS_Shape S1 = BRepPrimAPI_MakeSphere(m_fRadius);
 	mySphere = new AIS_Shape(S1);
 	gp_Trsf myTransfo;
-	myTransfo.SetTranslation(gp_Pnt(0, 0, 0), gp_Pnt(0, 400, 200));
+	myTransfo.SetTranslation(gp_Pnt(0, 0, 0), gp_Pnt(0, 0, 30));//以（0，0，0）转换到（0，400，200）
 	ais_context->SetLocation(mySphere, myTransfo);
-
-	ais_context->SetColor(mySphere, Quantity_NOC_RED, Standard_True);
-
-	mySphere->SetMaterial(myRubyMat);
+	ais_context->SetColor(mySphere, Quantity_NOC_GRAY, Standard_True);
 	ais_context->Display(mySphere, Standard_False);
-	TopoDS_Shape C1 = BRepPrimAPI_MakeCylinder(gp_Ax2(gp_Pnt(0, 0, 0),
-		gp_Dir(0, 0, 1)),
-		m_fRadius / 2, m_ProbePoleLength);
-	myCylinder = new AIS_Shape(C1);
 
+	//圆柱
+	TopoDS_Shape C1 = BRepPrimAPI_MakeCylinder(gp_Ax2(gp_Pnt(0, 0, 0),gp_Dir(0, 0, 1)),m_fRadius / 3, m_ProbePoleLength/2);
+	myCylinder1 = new AIS_Shape(C1);
 	gp_Ax3 from(gp_Pnt(0, 0, 0), gp_Dir(0, 0, 1));
-	gp_Ax3 to(gp_Pnt(0, 400, 200), gp_Dir(0, 0, 1));
+	gp_Ax3 to(gp_Pnt(0, 0, 35), gp_Dir(0, 0, 1));
 	myTransfo.SetTransformation(to, from);
-	ais_context->SetLocation(myCylinder, myTransfo);
+	ais_context->SetLocation(myCylinder1, myTransfo);
+	ais_context->SetColor(myCylinder1, Quantity_NOC_GRAY, Standard_True);
+	ais_context->Display(myCylinder1, Standard_True);
+	//圆锥
+	TopoDS_Shape A1 = BRepPrimAPI_MakeCone(gp_Ax2(gp_Pnt(0, 0, 0), gp_Dir(0, 0, 1)), m_fRadius / 3, m_fRadius, m_ProbePoleLength/2);
+	myCone1 = new AIS_Shape(A1);
+	gp_Ax3 from1(gp_Pnt(0, 0, 0), gp_Dir(0, 0, 1));
+	gp_Ax3 to1(gp_Pnt(0, 0, 45), gp_Dir(0, 0, 1));
+	myTransfo.SetTransformation(to1, from1);
+	ais_context->SetLocation(myCone1, myTransfo);
+	ais_context->SetColor(myCone1, Quantity_NOC_GRAY, Standard_True);
+	ais_context->Display(myCone1, Standard_True);
 
-	ais_context->SetColor(myCylinder, Quantity_NOC_GREEN, Standard_True);
-	ais_context->SetMaterial(myCylinder, Graphic3d_NOM_DEFAULT, Standard_True);
-
-	ais_context->Display(myCylinder, Standard_True);
 }
-#include <BRepOffsetAPI_MakeThickSolid.hxx>
+
 //画瓶子
 TopoDS_Shape  CmOCCTView::MakeBottle(const Standard_Real myWidth, const Standard_Real myHeight,
 	const Standard_Real myThickness)
@@ -775,4 +767,80 @@ void CmOCCTView::On32834()
 	myView->FitAll();
 
 
+}
+//测试头
+void CmOCCTView::On32835()
+{
+	double m_fRadius = 10;
+	double m_ProbePoleDiameter = 8.0;
+	double m_ProbePoleLength = 20.0;
+	Graphic3d_MaterialAspect myRubyMat;
+
+	Handle(AIS_InteractiveContext)ais_context = ((CmOCCTDoc*)GetDocument())->GetAISContext();
+
+	Handle(AIS_Shape)	mySphere;
+	Handle(AIS_Shape)	myCylinder1;
+	Handle(AIS_Shape)	myCylinder2;
+	Handle(AIS_Shape)	myCylinder3;
+	Handle(AIS_Shape)	myCone1;
+	Handle(AIS_Shape)	myCone2;
+
+
+	//球
+	TopoDS_Shape S1 = BRepPrimAPI_MakeSphere(m_fRadius);
+	mySphere = new AIS_Shape(S1);
+	gp_Trsf myTransfo;
+	myTransfo.SetTranslation(gp_Pnt(0, 0, 0), gp_Pnt(0, 0, 30));//以（0，0，0）转换到（0，400，200）
+	ais_context->SetLocation(mySphere, myTransfo);
+	ais_context->SetColor(mySphere, Quantity_NOC_GRAY, Standard_True);
+	ais_context->Display(mySphere, Standard_False);
+
+	//圆柱
+	TopoDS_Shape C1 = BRepPrimAPI_MakeCylinder(gp_Ax2(gp_Pnt(0, 0, 0), gp_Dir(0, 0, 1)), m_fRadius / 2, m_ProbePoleLength / 2);
+	myCylinder1 = new AIS_Shape(C1);
+	gp_Ax3 from(gp_Pnt(0, 0, 0), gp_Dir(0, 0, 1));
+	gp_Ax3 to(gp_Pnt(0, 0, 35), gp_Dir(0, 0, 1));
+	myTransfo.SetTransformation(to, from);
+	ais_context->SetLocation(myCylinder1, myTransfo);
+	ais_context->SetColor(myCylinder1, Quantity_NOC_GRAY, Standard_True);
+	ais_context->Display(myCylinder1, Standard_True);
+	//圆锥
+	TopoDS_Shape A1 = BRepPrimAPI_MakeCone(gp_Ax2(gp_Pnt(0, 0, 0), gp_Dir(0, 0, 1)), m_fRadius / 2, m_fRadius*1.5, m_ProbePoleLength /2);
+	myCone1 = new AIS_Shape(A1);
+	gp_Ax3 from1(gp_Pnt(0, 0, 0), gp_Dir(0, 0, 1));
+	gp_Ax3 to1(gp_Pnt(0, 0, 45), gp_Dir(0, 0, 1));
+	myTransfo.SetTransformation(to1, from1);
+	ais_context->SetLocation(myCone1, myTransfo);
+	ais_context->SetColor(myCone1, Quantity_NOC_GRAY, Standard_True);
+	ais_context->Display(myCone1, Standard_True);
+
+	//圆柱
+	TopoDS_Shape C2 = BRepPrimAPI_MakeCylinder(gp_Ax2(gp_Pnt(0, 0, 0), gp_Dir(0, 0, 1)), m_fRadius* 1.5, m_fRadius* 3);
+	myCylinder2 = new AIS_Shape(C2);
+	gp_Ax3 from2(gp_Pnt(0, 0, 0), gp_Dir(0, 0, 1));
+	gp_Ax3 to2(gp_Pnt(0, 0, 55), gp_Dir(0, 0, 1));
+	myTransfo.SetTransformation(to2, from2);
+	ais_context->SetLocation(myCylinder2, myTransfo);
+	ais_context->SetColor(myCylinder2, Quantity_NOC_GRAY, Standard_True);
+	ais_context->Display(myCylinder2, Standard_True);
+
+	//圆锥
+	TopoDS_Shape A2 = BRepPrimAPI_MakeCone(gp_Ax2(gp_Pnt(0, 0, 0), gp_Dir(0, 0, 1)), m_fRadius*1.5,  m_fRadius*3, m_fRadius*2);
+	myCone2 = new AIS_Shape(A2);
+	gp_Ax3 from3(gp_Pnt(0, 0, 0), gp_Dir(0, 0, 1));
+	gp_Ax3 to3(gp_Pnt(0, 0, 75), gp_Dir(0, 0, 1));
+	myTransfo.SetTransformation(to3, from3);
+	ais_context->SetLocation(myCone2, myTransfo);
+	ais_context->SetColor(myCone2, Quantity_NOC_GRAY, Standard_True);
+	ais_context->Display(myCone2, Standard_True);
+
+	//圆柱
+	TopoDS_Shape C3 = BRepPrimAPI_MakeCylinder(gp_Ax2(gp_Pnt(0, 0, 0), gp_Dir(0, 0, 1)), m_fRadius* 3, m_fRadius* 3);
+	myCylinder3 = new AIS_Shape(C3);
+	gp_Ax3 from4(gp_Pnt(0, 0, 0), gp_Dir(0, 0, 1));
+	gp_Ax3 to4(gp_Pnt(0, 0, 95), gp_Dir(0, 0, 1));
+	myTransfo.SetTransformation(to4, from4);
+	ais_context->SetLocation(myCylinder3, myTransfo);
+	ais_context->SetColor(myCylinder3, Quantity_NOC_GRAY, Standard_True);
+	ais_context->Display(myCylinder3, Standard_True);
 }
