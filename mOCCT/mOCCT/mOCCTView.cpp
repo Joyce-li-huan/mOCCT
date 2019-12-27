@@ -67,6 +67,7 @@ BEGIN_MESSAGE_MAP(CmOCCTView, CView)
 
 	ON_COMMAND(ID_32834, &CmOCCTView::On32834)
 	ON_COMMAND(ID_32835, &CmOCCTView::On32835)
+	ON_COMMAND(ID_32836, &CmOCCTView::On32836)
 END_MESSAGE_MAP()
 
 // CmOCCTView 构造/析构
@@ -843,4 +844,10 @@ void CmOCCTView::On32835()
 	ais_context->SetLocation(myCylinder3, myTransfo);
 	ais_context->SetColor(myCylinder3, Quantity_NOC_GRAY, Standard_True);
 	ais_context->Display(myCylinder3, Standard_True);
+}
+
+
+void CmOCCTView::On32836()
+{
+	myView->Pan(10, 10);
 }
