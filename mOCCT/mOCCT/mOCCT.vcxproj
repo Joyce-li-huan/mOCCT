@@ -211,6 +211,7 @@
     <ClInclude Include="ColoredShapes.h" />
     <ClInclude Include="GeoSource.h" />
     <ClInclude Include="GSL_SVD.h" />
+    <ClInclude Include="ISession_Coordinates.h" />
     <ClInclude Include="ISession_Direction.h" />
     <ClInclude Include="ISession_Point.h" />
     <ClInclude Include="listview.h" />
@@ -230,6 +231,7 @@
     <ClCompile Include="ColoredShapes.cpp" />
     <ClCompile Include="GeoSource.cpp" />
     <ClCompile Include="GSL_SVD.cpp" />
+    <ClCompile Include="ISession_Coordinates.cpp" />
     <ClCompile Include="ISession_Direction.cpp" />
     <ClCompile Include="ISession_Point.cpp" />
     <ClCompile Include="listview.cpp" />

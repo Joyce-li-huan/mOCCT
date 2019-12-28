@@ -111,3 +111,5 @@ void ISession_Direction::SetLineAspect(const Handle(Prs3d_LineAspect)& theAspect
 {
 	myDrawer->SetLineAspect(theAspect);
 }
+
+

@@ -27,8 +27,8 @@ void GeoSource::gpTest2(CmOCCTDoc* aDoc)
 	gp_Vec V1(p1,p2);
 
 	DisplayPoint(aDoc, p2, "P2", false, 0.5);
-	/*Handle(ISession_Direction) aDirection1 = new ISession_Direction(p1, V1);
-	aDoc->GetAISContext()->Display(aDirection1, Standard_False);*/
+	Handle(ISession_Direction) aDirection1 = new ISession_Direction(p1, V1);
+	aDoc->GetAISContext()->Display(aDirection1, Standard_False);
 }
 void GeoSource::PreProcess(CmOCCTDoc* aDoc, DisplayType aDisplayType)
 {
@@ -57,6 +57,9 @@ void GeoSource::DisplayPoint(CmOCCTDoc* theDoc,
 	aLabel->SetText(theText);
 	aLabel->SetPosition(gp_Pnt(thePoint.X() + theXoffset, thePoint.Y() + theYoffset, thePoint.Z() + theZoffset));
 	aLabel->SetHeight (theTextScale);
+	aLabel->SetAngle(0);
+	aLabel->SetZoomable(false);
+	
 	(void)theTextScale;
 	theDoc->GetAISContext()->Display(aLabel, theToUpdateViewer);
 }

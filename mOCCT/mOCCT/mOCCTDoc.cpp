@@ -62,6 +62,7 @@ BEGIN_MESSAGE_MAP(CmOCCTDoc, CDocument)
 	ON_COMMAND(ID_32832, &CmOCCTDoc::On32832)
 	ON_COMMAND(ID_32833, &CmOCCTDoc::On32833)
 	
+	ON_COMMAND(ID_32837, &CmOCCTDoc::On32837)
 END_MESSAGE_MAP()
 
 
@@ -750,4 +751,16 @@ void CmOCCTDoc::On32833()
 {
 
 }
+
+//显示坐标文字
+void CmOCCTDoc::On32837()
+{
+
+	Handle(ISession_Coordinates) Coordinates = new ISession_Coordinates();
+	myAISContext->Display(Coordinates, Standard_False);
+	myAISContext->Deactivate(Coordinates);
+	myViewer->Update();
+}
+
+
 

@@ -66,6 +66,9 @@
     <ClInclude Include="CMethodDlg2.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="ISession_Coordinates.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mOCCT.cpp">
@@ -111,6 +114,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="CMethodDlg2.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ISession_Coordinates.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

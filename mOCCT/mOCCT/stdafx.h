@@ -48,6 +48,9 @@
 #include <BndLib_Add2dCurve.hxx>
 #include <BRep_Builder.hxx>
 
+#include <Prs3d_Presentation.hxx>
+#include <Standard_Macro.hxx>
+#include <Graphic3d_GraphicDriver.hxx>
 
 
 #include "IGESControl_Reader.hxx"
@@ -268,6 +271,7 @@
 #include "ISession_Point.h"
 
 #include"ISession_Direction.h"
+#include"ISession_Coordinates.h"
 #include <afxwin.h>
 #include <afxwin.h>
 #include <afxwin.h>
