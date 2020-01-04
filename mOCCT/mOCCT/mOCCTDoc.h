@@ -36,6 +36,7 @@ public:
 // 操作
 public:
 	Handle(TDocStd_Document) GetOcafDoc() { return myDoc; };
+	//Handle(ISession_Coordinates) myCoord;
 private:
 	Handle(AIS_Trihedron) myTrihedron;
 	Handle(BRepPrim_Cylinder) myCylinder;

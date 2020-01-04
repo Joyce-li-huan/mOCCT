@@ -26,6 +26,7 @@
 #include"./include/basics.h"
 #include"./include/circle2d_fit.h"
 
+#include"ISession_Coordinates.h"
 gp_Pln agpPlane;
 // CmOCCTView
 
@@ -68,6 +69,8 @@ BEGIN_MESSAGE_MAP(CmOCCTView, CView)
 	ON_COMMAND(ID_32834, &CmOCCTView::On32834)
 	ON_COMMAND(ID_32835, &CmOCCTView::On32835)
 	ON_COMMAND(ID_32836, &CmOCCTView::On32836)
+	ON_COMMAND(ID_32837, &CmOCCTView::On32837)
+	ON_COMMAND(ID_HELP, &CmOCCTView::OnHelp)
 END_MESSAGE_MAP()
 
 // CmOCCTView 构造/析构
@@ -784,7 +787,7 @@ TopoDS_Shape  CmOCCTView::MakeBottle(const Standard_Real myWidth, const Standard
 	aBuilder.Add(aRes, myThreading);
 
 	Handle(AIS_Shape) ais2 = new AIS_Shape(aRes);
-	GetDocument()->GetAISContext()->SetColor(ais2, Quantity_NOC_BROWN, Standard_False);
+	GetDocument()->GetAISContext()->SetColor(ais2, Quantity_NOC_GRAY, Standard_False);
 	GetDocument()->GetAISContext()->SetMaterial(ais2, Graphic3d_NOM_GOLD, Standard_False);
 	GetDocument()->GetAISContext()->Display(ais2, Standard_True);
 
@@ -814,18 +817,18 @@ void CmOCCTView::On32835()
 	Handle(AIS_Shape)	ProbePole;
 	TopoDS_Shape S1 = BRepPrimAPI_MakeSphere(gp_Pnt(0, 0, 30), m_fRadius);
 	TopoDS_Shape C1 = BRepPrimAPI_MakeCylinder(gp_Ax2(gp_Pnt(0, 0, 35), gp_Dir(0, 0, 1)), m_fRadius / 2, m_ProbePoleLength / 2);
-	TopoDS_Shape Cylinder1 = BRepAlgoAPI_Fuse(S1, C1);
+	TopoDS_Shape body1Part = BRepAlgoAPI_Fuse(S1, C1);
 
 	TopoDS_Shape A1 = BRepPrimAPI_MakeCone(gp_Ax2(gp_Pnt(0, 0, 45), gp_Dir(0, 0, 1)), m_fRadius / 2, m_fRadius*1.5, m_ProbePoleLength / 2);
 	TopoDS_Shape C2 = BRepPrimAPI_MakeCylinder(gp_Ax2(gp_Pnt(0, 0, 55), gp_Dir(0, 0, 1)), m_fRadius* 1.5, m_fRadius * 3);
-	TopoDS_Shape Cylinder2 = BRepAlgoAPI_Fuse(A1, C2);
+	TopoDS_Shape body2Part = BRepAlgoAPI_Fuse(A1, C2);
 
 	TopoDS_Shape A2 = BRepPrimAPI_MakeCone(gp_Ax2(gp_Pnt(0, 0, 75), gp_Dir(0, 0, 1)), m_fRadius*1.5, m_fRadius * 3, m_fRadius * 2);
 	TopoDS_Shape C3 = BRepPrimAPI_MakeCylinder(gp_Ax2(gp_Pnt(0, 0, 95), gp_Dir(0, 0, 1)), m_fRadius * 3, m_fRadius * 3);
-	TopoDS_Shape Cylinder3 = BRepAlgoAPI_Fuse(A2, C3);
+	TopoDS_Shape body3Part = BRepAlgoAPI_Fuse(A2, C3);
 
-	TopoDS_Shape Body1= BRepAlgoAPI_Fuse(Cylinder1, Cylinder2);
-	TopoDS_Shape body = BRepAlgoAPI_Fuse(Body1, Cylinder3);
+	TopoDS_Shape Body1= BRepAlgoAPI_Fuse(body1Part, body2Part);
+	TopoDS_Shape body = BRepAlgoAPI_Fuse(Body1, body3Part);
 	ProbePole = new AIS_Shape(body);
 	ais_context->SetColor(ProbePole, Quantity_NOC_GRAY, Standard_True);
 	ais_context->Display(ProbePole, Standard_True);
@@ -836,4 +839,21 @@ void CmOCCTView::On32835()
 void CmOCCTView::On32836()
 {
 	myView->Pan(10, 10);
+}
+
+
+void CmOCCTView::On32837()
+{
+	// TODO: 在此添加命令处理程序代码
+}
+
+#include "htmlhelp.h"
+void CmOCCTView::OnHelp()
+{
+	CString strHelp;
+	strHelp = _T("E:\\TestHtmlHelp\\Test.chm");
+	char charHelp[MAX_PATH];
+	int len = WideCharToMultiByte(CP_ACP, 0, strHelp, -1, NULL, 0, NULL, NULL);
+	WideCharToMultiByte(CP_ACP, 0, (LPCTSTR)strHelp, -1, charHelp, len, NULL, NULL);
+	HWND helpwnd = ::HtmlHelp(GetSafeHwnd(),(LPCWSTR)charHelp, HH_DISPLAY_TOPIC, NULL);
 }

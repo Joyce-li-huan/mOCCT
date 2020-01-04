@@ -6,6 +6,8 @@
 #include "mOCCT.h"
 
 #include "MainFrm.h"
+#include"htmlhelp.h"
+
 //#include"mOCCTView.h"
 #ifdef _DEBUG
 #define new DEBUG_NEW

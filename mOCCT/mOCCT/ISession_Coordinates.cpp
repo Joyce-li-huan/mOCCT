@@ -1,114 +1,70 @@
 #include "stdafx.h"
 #include "ISession_Coordinates.h"
 
+#include <Graphic3d_ArrayOfPolygons.hxx>
 
 
 ISession_Coordinates::ISession_Coordinates()
 {
+	SetTransformPersistence(new Graphic3d_TransformPers(Graphic3d_TMF_2d,Aspect_TOTP_LEFT_LOWER));
+	SetZLayer(Graphic3d_ZLayerId_TopOSD);
 }
+
 
 ISession_Coordinates::~ISession_Coordinates()
 {
 }
 
-//显示
-ISession_Coordinates::ISession_Coordinates(const Quantity_Color& theLineColor,
-											const Aspect_TypeOfLine theLineType,
-											const Quantity_Color theFillColor,
-											const Standard_Real theTransparency = 1.0,
-											const Standard_Real theLineWidth = 1.0,
-											const Standard_Boolean theIsPolygonClosed = Standard_True)
-{
-
-		myDrawer->SetLineAspect(new Prs3d_LineAspect(theLineColor, theLineType, theLineWidth));
-		myDrawer->SetShadingAspect(new Prs3d_ShadingAspect());
-		myDrawer->ShadingAspect()->SetMaterial(Graphic3d_NOM_PLASTIC);
-		myDrawer->ShadingAspect()->SetColor(theFillColor);
-		myDrawer->ShadingAspect()->Aspect()->SetInteriorStyle(Aspect_IS_SOLID);
-		myDrawer->ShadingAspect()->Aspect()->SetAlphaMode(Graphic3d_AlphaMode_Blend);
-		myDrawer->ShadingAspect()->SetTransparency(theTransparency);
-
-
-		SetTransformPersistence(new Graphic3d_TransformPers(Graphic3d_TMF_2d,  Aspect_TOTP_RIGHT_UPPER ));
-		SetZLayer(Graphic3d_ZLayerId_TopOSD);
-}
 
 void ISession_Coordinates:: Compute(const Handle(PrsMgr_PresentationManager3d)& thePresentationManager,
 									const Handle(Prs3d_Presentation)& thePresentation,
-									const Standard_Integer /*theMode*/)
+									const Standard_Integer theMode)
 {
-	// 得到组
-	Handle(Graphic3d_Group) aGroup = thePresentation->NewGroup();
-	
-	// 改变文字属性
-	Handle(Graphic3d_AspectText3d) aTextAspect = new Graphic3d_AspectText3d();
-	aTextAspect->SetTextZoomable(false);
-	aTextAspect->SetTextAngle(0.0);
-	aTextAspect->SetColor(Quantity_NOC_BLUE1);
-	aGroup->SetPrimitivesAspect(aTextAspect);
-	// 把文字添加到结构中
-	Graphic3d_Vertex aPoint(0, 500, 100.);
-	aGroup->Text(Standard_CString("X"), aPoint, 16.0);
+
+	Handle(Graphic3d_Group) aGroup = Prs3d_Root::CurrentGroup(thePresentation);
+
+	Handle(Graphic3d_AspectLine3d) aLineAspect =
+		new Graphic3d_AspectLine3d(Quantity_Color(0.4, 0.43, 0.43, Quantity_TOC_RGB), Aspect_TOL_SOLID, 2);
+	Handle(Graphic3d_AspectText3d) aTextAspect =
+		new Graphic3d_AspectText3d(Quantity_Color(0.2, 0.2, 0.2, Quantity_TOC_RGB),
+			"Arial", 1, 5);
+	aGroup->SetGroupPrimitivesAspect(aLineAspect);
+	aGroup->SetGroupPrimitivesAspect(aTextAspect);
 
 	
-	
-	//画矩形
-	// create an array
-	Standard_Boolean hasNormals = false;
-	Standard_Boolean hasColors = false;
-	Standard_Boolean hasTextureCrds = false;
-//	Handle(Graphic3d_ArrayOfTriangles) anArray = new Graphic3d_ArrayOfTriangles(theVerticesMaxCount, theEdgesMaxCount, hasNormals, hasColors, hasTextureCrds);
-	// add vertices to the array
-	//anArray->AddVertex(-1.0, 0.0, 0.0); // vertex 1
-	//anArray->AddVertex(1.0, 0.0, 0.0); // vertex 2
-	//anArray->AddVertex(0.0, 1.0, 0.0); // vertex 3
-	//anArray->AddVertex(0.0, -1.0, 0.0); // vertex 4
-	//// add edges to the array
-	//anArray->AddEdge(1);  // first triangle
-	//anArray->AddEdge(2);
-	//anArray->AddEdge(3);
-	//anArray->AddEdge(1);  // second triangle
-	//anArray->AddEdge(2);
-	//anArray->AddEdge(4);
-	//// add the array to the structure
-	//Handle(Graphic3d_Group) aGroup = thePrs->NewGroup();
-	//aGroup->AddPrimitiveArray(anArray);
-	//aGroup->SetGroupPrimitivesAspect(myDrawer->ShadingAspect()->Aspect());
-}
+	Handle(Graphic3d_ArrayOfPolylines) myGridCell = new Graphic3d_ArrayOfPolylines(5);
 
+	myGridCell->AddVertex(100, 100, 0.0);
+	myGridCell->AddVertex(100, 200, 0.0);
+	myGridCell->AddVertex(200, 100, 0.0);
+	myGridCell->AddVertex(200, 200, 0.0);
+	aGroup->AddPrimitiveArray(myGridCell);
 
-
-void ISession_Coordinates::ComputeSelection(const Handle(SelectMgr_Selection)& /*aSelection*/,
-	const Standard_Integer /*unMode*/)
-{
+	aGroup->Text("X", Graphic3d_Vertex(100,100, 0.0), 50);
 
 }
 
 
 
 
-	// 画文字
-	/*TCollection_ExtendedString myText = "X:";
-	gp_Pnt aTextPosition (0,500,300);
-	Prs3d_Text::Draw(Prs3d_Root::CurrentGroup(thePresentation), myDrawer->TextAspect(), myText, aTextPosition);
-
-	Standard_CString myTexty = "Y:";
-	gp_Pnt aTextPositiony(0, 500, 250);
-	Prs3d_Text::Draw(Prs3d_Root::CurrentGroup(thePresentation), myDrawer->TextAspect(), myTexty, aTextPositiony);
-
-	Standard_CString myTextz = "Z:";
-	gp_Pnt aTextPositionz(0, 500, 200);
-	Prs3d_Text::Draw(Prs3d_Root::CurrentGroup(thePresentation), myDrawer->TextAspect(), myTextz, aTextPositionz);
-	
-	
-	Handle(AIS_TextLabel) aLabel = new AIS_TextLabel();
-	aLabel->SetText(myText);
-	aLabel->SetPosition(gp_Pnt(0,0,0));
-	aLabel->SetHeight(20);
-	aLabel->SetAngle(0);
-	aLabel->SetZoomable(false);*/
-	
-	
-	
-
-
+//int x1 = 0;
+//int y1 = 659;
+//int x2 = 25;
+//int y2 = 674;
+//int x3 = 50;
+//int y3 = 659;
+//int x4 = 25;
+//int y4 = 645;
+//TopoDS_Face BlueFace;
+//TopoDS_Edge E11 = BRepBuilderAPI_MakeEdge(gp_Pnt(x1, y1, 0), gp_Pnt(x2, y2, 0));
+//TopoDS_Edge E12 = BRepBuilderAPI_MakeEdge(gp_Pnt(x2, y2, 0), gp_Pnt(x3, y3, 0));
+//TopoDS_Edge E13 = BRepBuilderAPI_MakeEdge(gp_Pnt(x3, y3, 0), gp_Pnt(x4, y4, 0));
+//TopoDS_Edge E14 = BRepBuilderAPI_MakeEdge(gp_Pnt(x4, y4, 0), gp_Pnt(x1, y1, 0));
+//BRepBuilderAPI_MakeWire W1(E11, E12, E13, E14);
+//BlueFace = BRepBuilderAPI_MakeFace(W1);
+//Handle(AIS_InteractiveContext) myAISContext;
+//Handle(AIS_Shape) Blue = new AIS_Shape(BlueFace);
+//myAISContext->SetColor(Blue, Quantity_NOC_BLACK, Standard_False);
+//myAISContext->SetMaterial(Blue, Graphic3d_NOM_PLASTIC, Standard_False);
+//
+//StdPrs_ShadedShape::Add(thePrs, W1, myDrawer);

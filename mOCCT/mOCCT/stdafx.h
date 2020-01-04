@@ -195,6 +195,7 @@
 #include <OpenGl_GraphicDriver.hxx>  
 #include <Graphic3d_GraphicDriver.hxx>  
 
+#include <Graphic3d_ArrayOfPolylines.hxx>
 //画线
 #include <AIS_Line.hxx>
 #include<AIS_Circle.hxx>

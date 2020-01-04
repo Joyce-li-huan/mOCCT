@@ -16,7 +16,8 @@ IMPLEMENT_STANDARD_RTTIEXT(ISession_Point, AIS_InteractiveObject)
 ISession_Point::ISession_Point(Standard_Real X, Standard_Real Y, Standard_Real Z)
 	:myPoint(gp_Pnt(X, Y, Z))
 {
-
+	SetTransformPersistence(new Graphic3d_TransformPers(Graphic3d_TMF_2d, Aspect_TOTP_LEFT_LOWER));
+	SetZLayer(Graphic3d_ZLayerId_TopOSD);
 }
 
 ISession_Point::ISession_Point(const gp_Pnt2d& aPoint, Standard_Real Elevation)

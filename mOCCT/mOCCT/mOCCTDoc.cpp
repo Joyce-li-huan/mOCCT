@@ -19,6 +19,7 @@
 
 #include"CMethodDlg.h"
 #include"CMethodDlg2.h"
+
 //#ifdef _DEBUG
 //#define new DEBUG_NEW
 //#endif
@@ -755,11 +756,11 @@ void CmOCCTDoc::On32833()
 //显示坐标文字
 void CmOCCTDoc::On32837()
 {
+Handle(ISession_Coordinates) Coordinates = new ISession_Coordinates();
 
-	Handle(ISession_Coordinates) Coordinates = new ISession_Coordinates();
 	myAISContext->Display(Coordinates, Standard_False);
 	myAISContext->Deactivate(Coordinates);
-	myViewer->Update();
+myViewer->Update();
 }
 
 
