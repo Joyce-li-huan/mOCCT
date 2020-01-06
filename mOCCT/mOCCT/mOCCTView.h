@@ -111,6 +111,8 @@ public:
 	afx_msg void On32836();
 	afx_msg void On32837();
 	afx_msg void OnHelp();
+	afx_msg void On32840();
+
 };
 
 #ifndef _DEBUG  // mOCCTView.cpp 中的调试版本

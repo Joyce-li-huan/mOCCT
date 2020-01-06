@@ -27,6 +27,8 @@
 #include"./include/circle2d_fit.h"
 
 #include"ISession_Coordinates.h"
+
+#include"ISession_Text.h"
 gp_Pln agpPlane;
 // CmOCCTView
 
@@ -71,6 +73,7 @@ BEGIN_MESSAGE_MAP(CmOCCTView, CView)
 	ON_COMMAND(ID_32836, &CmOCCTView::On32836)
 	ON_COMMAND(ID_32837, &CmOCCTView::On32837)
 	ON_COMMAND(ID_HELP, &CmOCCTView::OnHelp)
+	ON_COMMAND(ID_32840, &CmOCCTView::On32840)
 END_MESSAGE_MAP()
 
 // CmOCCTView 构造/析构
@@ -844,7 +847,6 @@ void CmOCCTView::On32836()
 
 void CmOCCTView::On32837()
 {
-	// TODO: 在此添加命令处理程序代码
 }
 
 #include "htmlhelp.h"
@@ -857,3 +859,26 @@ void CmOCCTView::OnHelp()
 	WideCharToMultiByte(CP_ACP, 0, (LPCTSTR)strHelp, -1, charHelp, len, NULL, NULL);
 	HWND helpwnd = ::HtmlHelp(GetSafeHwnd(),(LPCWSTR)charHelp, HH_DISPLAY_TOPIC, NULL);
 }
+
+
+void CmOCCTView::On32840()
+{
+	const char* gb2312 = "点";
+	//char* unicode = NULL;
+	//UINT nCodePage = 936; //GB2312
+	//int len = MultiByteToWideChar(nCodePage, 0, gb2312, -1, NULL, 0);
+	//wchar_t* wstr = new wchar_t[len + 1];
+	//memset(wstr, 0, len + 1);
+	//MultiByteToWideChar(nCodePage, 0, gb2312, -1, wstr, len);
+	//len = len * sizeof(wchar_t);
+	//memcpy(unicode, wstr, len);
+	//if (wstr) delete[] wstr;
+	
+	TCollection_AsciiString aFileName((const wchar_t*)gb2312);
+	Handle(ISession_Text)  aGraphicText = new ISession_Text(aFileName);
+	aGraphicText->SetAngle(180);
+	Handle(AIS_InteractiveContext)ais_context = ((CmOCCTDoc*)GetDocument())->GetAISContext();
+	ais_context->Display(aGraphicText, Standard_True);
+	
+}
+

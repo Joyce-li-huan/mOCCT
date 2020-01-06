@@ -18,7 +18,7 @@ void GeoSource::gpTest1(CmOCCTDoc* aDoc)
 	//DisplayType TheDisplayType = No2D3D;
 	//PreProcess(aDoc,TheDisplayType);
 	gp_Pnt p1(10, 20, 30);
-	DisplayPoint(aDoc,p1,"p1(1,2,3)",false,30);
+	DisplayPoint(aDoc,p1,"µã(1,2,3)",false,30);
 
 }
 void GeoSource::gpTest2(CmOCCTDoc* aDoc)
@@ -54,7 +54,20 @@ void GeoSource::DisplayPoint(CmOCCTDoc* theDoc,
 	theDoc->GetAISContext()->Display(aGraphicPoint, Standard_False);
 
 	Handle(AIS_TextLabel) aLabel = new AIS_TextLabel();
-	aLabel->SetText(theText);
+
+
+	
+	char* unicode = "";
+		UINT nCodePage = 936; //GB2312
+		int len = MultiByteToWideChar(nCodePage, 0, theText, -1, NULL, 0);
+		wchar_t* wstr = new wchar_t[len + 1];
+		memset(wstr, 0, len + 1);
+		MultiByteToWideChar(nCodePage, 0, theText, -1, wstr, len);
+		len = len * sizeof(wchar_t);
+		memcpy(unicode, wstr, len);
+
+
+	aLabel->SetText(unicode);
 	aLabel->SetPosition(gp_Pnt(thePoint.X() + theXoffset, thePoint.Y() + theYoffset, thePoint.Z() + theZoffset));
 	aLabel->SetHeight (theTextScale);
 	aLabel->SetAngle(0);

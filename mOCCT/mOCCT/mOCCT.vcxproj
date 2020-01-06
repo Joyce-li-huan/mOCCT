@@ -93,8 +93,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <ExecutablePath>D:\软件\from liu\TNT;F:\OpenCASCADE-7.3.0-vc14-64\opencascade-7.3.0\win64\vc14\bin;D:\软件\from liu\Nurbs;C:\gsl-1.6\_build\bin;$(ExecutablePath)</ExecutablePath>
-    <IncludePath>D:\OCC\mOCCT\mOCCT\include;D:\软件\from liu\Nurbs\include;C:\gsl-1.6\_build\include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\OCC\mOCCT\mOCCT\lib;D:\软件\from liu\Nurbs\nurbs;C:\gsl-1.6\_build\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\OpenCASCADE-7.3.0-vc14-64\freetype-2.5.5-vc14-64\include;C:\OpenCASCADE-7.3.0-vc14-64\vtk-6.1.0-vc14-64\include;D:\OCC\mOCCT\mOCCT\include;D:\软件\from liu\Nurbs\include;C:\gsl-1.6\_build\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\OpenCASCADE-7.3.0-vc14-64\vtk-6.1.0-vc14-64\lib;C:\OpenCASCADE-7.3.0-vc14-64\freetype-2.5.5-vc14-64\lib;D:\OCC\mOCCT\mOCCT\lib;D:\软件\from liu\Nurbs\nurbs;C:\gsl-1.6\_build\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -192,7 +192,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>D:\软件\from liu\Nurbs;F:\OpenCASCADE-7.3.0-vc14-64\opencascade-7.3.0\win64\vc14\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>TKVCAF.lib;TKBRep.lib;TKBool.lib;TKCAF.lib;TKCDF.lib;TKernel.lib;TKFeat.lib;TKFillet.lib;TKG2d.lib;TKG3d.lib;TKGeomAlgo.lib;TKGeomBase.lib;TKHLR.lib;TKIGES.lib;TKIVtkDraw.lib;TKLCAF.lib;TKMath.lib;TKMesh.lib;TKMeshVS.lib;TKOffset.lib;TKOpenGl.lib;TKPrim.lib;TKQADraw.lib;TKService.lib;TKShapeView.lib;TKShHealing.lib;TKStd.lib;TKStdl.lib;TKSTEP.lib;TKSTEP209.lib;TKSTEPAttr.lib;TKSTEPBase.lib;TKSTL.lib;TKTInspector.lib;TKTInspectorAPI.lib;TKTObj.lib;TKTObjDRAW.lib;TKToolsDraw.lib;TKTopAlgo.lib;TKTopTest.lib;TKTreeModel.lib;TKV3d.lib;TKView.lib;TKBin.lib;TKBinL.lib;TKBinTOBj.lib;TKBinXCAF.lib;TKBO.lib;TKD3DHost.lib;TKDCAF.lib;TKDFBrowser.lib;TKDraw.lib;TKViewerTest.lib;TKXDEDRAW.lib;TKXDESTEP.lib;TKXDEIGES.lib;TKXMesh.lib;TKXml.lib;TKXmlL.lib;TKXmlTObj.lib;TKXmlXCAF.lib;TKXSBase.lib;TKXSDRAW.lib;libgsl.a;libgslcblas.a;legacy_stdio_definitions.lib;GMath.lib;Htmlhelp.Lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>TKVCAF.lib;TKBRep.lib;TKBool.lib;TKCAF.lib;TKCDF.lib;TKernel.lib;TKFeat.lib;TKFillet.lib;TKG2d.lib;TKG3d.lib;TKGeomAlgo.lib;TKGeomBase.lib;TKHLR.lib;TKIGES.lib;TKIVtkDraw.lib;TKLCAF.lib;TKMath.lib;TKMesh.lib;TKMeshVS.lib;TKOffset.lib;TKOpenGl.lib;TKPrim.lib;TKQADraw.lib;TKService.lib;TKShapeView.lib;TKShHealing.lib;TKStd.lib;TKStdl.lib;TKSTEP.lib;TKSTEP209.lib;TKSTEPAttr.lib;TKSTEPBase.lib;TKSTL.lib;TKTInspector.lib;TKTInspectorAPI.lib;TKTObj.lib;TKTObjDRAW.lib;TKToolsDraw.lib;TKTopAlgo.lib;TKTopTest.lib;TKTreeModel.lib;TKV3d.lib;TKView.lib;TKBin.lib;TKBinL.lib;TKBinTOBj.lib;TKBinXCAF.lib;TKBO.lib;TKD3DHost.lib;TKDCAF.lib;TKDFBrowser.lib;TKDraw.lib;TKViewerTest.lib;TKXDEDRAW.lib;TKXDESTEP.lib;TKXDEIGES.lib;TKXMesh.lib;TKXml.lib;TKXmlL.lib;TKXmlTObj.lib;TKXmlXCAF.lib;TKXSBase.lib;TKXSDRAW.lib;libgsl.a;libgslcblas.a;legacy_stdio_definitions.lib;GMath.lib;Htmlhelp.Lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Midl>
       <MkTypLibCompatible>false</MkTypLibCompatible>
@@ -214,6 +214,7 @@
     <ClInclude Include="ISession_Coordinates.h" />
     <ClInclude Include="ISession_Direction.h" />
     <ClInclude Include="ISession_Point.h" />
+    <ClInclude Include="ISession_Text.h" />
     <ClInclude Include="listview.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="mOCCT.h" />
@@ -234,6 +235,7 @@
     <ClCompile Include="ISession_Coordinates.cpp" />
     <ClCompile Include="ISession_Direction.cpp" />
     <ClCompile Include="ISession_Point.cpp" />
+    <ClCompile Include="ISession_Text.cpp" />
     <ClCompile Include="listview.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="mOCCT.cpp" />

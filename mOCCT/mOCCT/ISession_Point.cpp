@@ -42,6 +42,7 @@ void ISession_Point::Compute(const Handle(PrsMgr_PresentationManager3d)& /*aPres
 	Handle(Geom_CartesianPoint) aGeomPoint = new Geom_CartesianPoint(myPoint);
 
 	StdPrs_Point::Add(aPresentation, aGeomPoint, myDrawer);
+
 }
 void ISession_Point::Compute(const Handle(Prs3d_Projector)& /*aProjector*/,
 	const Handle(Prs3d_Presentation)& /*aPresentation*/)
