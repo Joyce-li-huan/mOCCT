@@ -206,6 +206,7 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AIS_Text.h" />
     <ClInclude Include="CMethodDlg.h" />
     <ClInclude Include="CMethodDlg2.h" />
     <ClInclude Include="ColoredShapes.h" />
@@ -214,7 +215,6 @@
     <ClInclude Include="ISession_Coordinates.h" />
     <ClInclude Include="ISession_Direction.h" />
     <ClInclude Include="ISession_Point.h" />
-    <ClInclude Include="ISession_Text.h" />
     <ClInclude Include="listview.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="mOCCT.h" />
@@ -227,6 +227,7 @@
     <ClInclude Include="TNT_Test.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AIS_Text.cpp" />
     <ClCompile Include="CMethodDlg.cpp" />
     <ClCompile Include="CMethodDlg2.cpp" />
     <ClCompile Include="ColoredShapes.cpp" />
@@ -235,7 +236,6 @@
     <ClCompile Include="ISession_Coordinates.cpp" />
     <ClCompile Include="ISession_Direction.cpp" />
     <ClCompile Include="ISession_Point.cpp" />
-    <ClCompile Include="ISession_Text.cpp" />
     <ClCompile Include="listview.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="mOCCT.cpp" />

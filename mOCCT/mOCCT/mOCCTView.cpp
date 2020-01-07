@@ -28,7 +28,7 @@
 
 #include"ISession_Coordinates.h"
 
-#include"ISession_Text.h"
+#include"AIS_Text.h"
 gp_Pln agpPlane;
 // CmOCCTView
 
@@ -863,20 +863,10 @@ void CmOCCTView::OnHelp()
 
 void CmOCCTView::On32840()
 {
-	const char* gb2312 = "点";
-	//char* unicode = NULL;
-	//UINT nCodePage = 936; //GB2312
-	//int len = MultiByteToWideChar(nCodePage, 0, gb2312, -1, NULL, 0);
-	//wchar_t* wstr = new wchar_t[len + 1];
-	//memset(wstr, 0, len + 1);
-	//MultiByteToWideChar(nCodePage, 0, gb2312, -1, wstr, len);
-	//len = len * sizeof(wchar_t);
-	//memcpy(unicode, wstr, len);
-	//if (wstr) delete[] wstr;
-	
-	TCollection_AsciiString aFileName((const wchar_t*)gb2312);
-	Handle(ISession_Text)  aGraphicText = new ISession_Text(aFileName);
-	aGraphicText->SetAngle(180);
+	Standard_CString aText = "Point";
+	Handle(AIS_Text) aGraphicText = new AIS_Text();
+	aGraphicText->SetText(aText);
+	aGraphicText->ConvertToUnicode(aText);
 	Handle(AIS_InteractiveContext)ais_context = ((CmOCCTDoc*)GetDocument())->GetAISContext();
 	ais_context->Display(aGraphicText, Standard_True);
 	
