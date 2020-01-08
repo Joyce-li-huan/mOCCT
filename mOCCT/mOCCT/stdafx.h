@@ -40,6 +40,9 @@
 #include <AIS_Shape.hxx>
 #include <AIS_Trihedron.hxx>
 
+#include <Graphic3d_StructureManager.hxx>
+#include <Graphic3d_Texture1Dsegment.hxx>
+
 #include <Aspect_Background.hxx>
 #include <Aspect_TypeOfline.hxx>
 #include <Aspect_WidthOfline.hxx>
@@ -273,6 +276,7 @@
 
 #include"ISession_Direction.h"
 #include"ISession_Coordinates.h"
+#include <afxwin.h>
 #include <afxwin.h>
 #include <afxwin.h>
 #include <afxwin.h>

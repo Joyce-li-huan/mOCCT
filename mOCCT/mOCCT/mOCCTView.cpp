@@ -29,6 +29,7 @@
 #include"ISession_Coordinates.h"
 
 #include"AIS_Text.h"
+#include"ConvertToString.h"
 gp_Pln agpPlane;
 // CmOCCTView
 
@@ -74,6 +75,8 @@ BEGIN_MESSAGE_MAP(CmOCCTView, CView)
 	ON_COMMAND(ID_32837, &CmOCCTView::On32837)
 	ON_COMMAND(ID_HELP, &CmOCCTView::OnHelp)
 	ON_COMMAND(ID_32840, &CmOCCTView::On32840)
+	//ON_COMMAND(ID_32839, &CmOCCTView::On32839)
+	ON_COMMAND(ID_32841, &CmOCCTView::On32841)
 END_MESSAGE_MAP()
 
 // CmOCCTView 构造/析构
@@ -863,12 +866,46 @@ void CmOCCTView::OnHelp()
 
 void CmOCCTView::On32840()
 {
-	Standard_CString aText = "Point";
+	Standard_CString aText = "点";//"&#x70B9";// "\u70b9"
+
+ /*   int len = MultiByteToWideChar(CP_ACP, 0, aText, -1, NULL, 0);
+	wchar_t* wstr = new wchar_t[len + 1];
+	memset(wstr, 0, len + 1);
+	MultiByteToWideChar(CP_ACP, 0, aText, -1, wstr, len);
+	len = WideCharToMultiByte(CP_UTF8, 0, wstr, -1, NULL, 0, NULL, NULL);
+	char* str = new char[len + 1];
+	memset(str, 0, len + 1);
+	WideCharToMultiByte(CP_UTF8, 0, wstr, -1, str, len, NULL, NULL);*/
+	
+
 	Handle(AIS_Text) aGraphicText = new AIS_Text();
-	aGraphicText->SetText(aText);
 	aGraphicText->ConvertToUnicode(aText);
+	aGraphicText->SetHeight(1000);
+	aGraphicText->SetText(aText);
 	Handle(AIS_InteractiveContext)ais_context = ((CmOCCTDoc*)GetDocument())->GetAISContext();
 	ais_context->Display(aGraphicText, Standard_True);
 	
 }
 
+//void CmOCCTView::On32839()
+//{
+	//CString str = _T("D:\\a.bmp");
+	//HBITMAP hBitmap = (HBITMAP)::LoadImage(NULL, str, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	//CBitmap bitmap;
+	//bitmap.Attach(hBitmap);
+	//CPaintDC dc(this);
+	//CDC MemDC;
+	//MemDC.CreateCompatibleDC(&dc);
+	//MemDC.SelectObject(&bitmap);
+	//CRect rect;
+	//GetClientRect(&rect);
+	//dc.BitBlt(0, 0, rect.Width(), rect.Height(), &MemDC, 0, 0, SRCCOPY);
+
+//}
+
+
+void CmOCCTView::On32841()
+{
+	ConvertToString dlg;
+	dlg.DoModal();
+}

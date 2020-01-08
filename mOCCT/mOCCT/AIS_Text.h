@@ -1,4 +1,5 @@
 #pragma once
+class TCollection_ExtendedString;
 class AIS_Text :
 	public AIS_InteractiveObject
 {
@@ -15,5 +16,6 @@ public:
 	TCollection_ExtendedString myText;
 	void SetText(Standard_CString& aText);
 	void ConvertToUnicode(Standard_CString aText);
+	void SetHeight(const Standard_Real theHeight);
 };
 

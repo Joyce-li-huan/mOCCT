@@ -206,10 +206,12 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AIS_ImportIcon.h" />
     <ClInclude Include="AIS_Text.h" />
     <ClInclude Include="CMethodDlg.h" />
     <ClInclude Include="CMethodDlg2.h" />
     <ClInclude Include="ColoredShapes.h" />
+    <ClInclude Include="ConvertToString.h" />
     <ClInclude Include="GeoSource.h" />
     <ClInclude Include="GSL_SVD.h" />
     <ClInclude Include="ISession_Coordinates.h" />
@@ -227,10 +229,12 @@
     <ClInclude Include="TNT_Test.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AIS_ImportIcon.cpp" />
     <ClCompile Include="AIS_Text.cpp" />
     <ClCompile Include="CMethodDlg.cpp" />
     <ClCompile Include="CMethodDlg2.cpp" />
     <ClCompile Include="ColoredShapes.cpp" />
+    <ClCompile Include="ConvertToString.cpp" />
     <ClCompile Include="GeoSource.cpp" />
     <ClCompile Include="GSL_SVD.cpp" />
     <ClCompile Include="ISession_Coordinates.cpp" />
@@ -260,6 +264,7 @@
     <Image Include="res\mOCCT.ico" />
     <Image Include="res\mOCCTDoc.ico" />
     <Image Include="res\Toolbar.bmp" />
+    <Image Include="res\平面.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -20,6 +20,7 @@
 #include"CMethodDlg.h"
 #include"CMethodDlg2.h"
 
+#include"AIS_ImportIcon.h"
 //#ifdef _DEBUG
 //#define new DEBUG_NEW
 //#endif
@@ -65,6 +66,7 @@ BEGIN_MESSAGE_MAP(CmOCCTDoc, CDocument)
 	
 	ON_COMMAND(ID_32837, &CmOCCTDoc::On32837)
 
+	ON_COMMAND(ID_32839, &CmOCCTDoc::On32839)
 END_MESSAGE_MAP()
 
 
@@ -765,4 +767,13 @@ myViewer->Update();
 }
 
 
-
+//加载图片
+void CmOCCTDoc::On32839()
+{
+	CString ImagePath = L"c:\\1.bmp";
+	TCollection_AsciiString aImage((const wchar_t*)ImagePath);
+	myAISContext->EraseAll(Standard_False);
+	Handle(AIS_ImportIcon) ImportIcon = new AIS_ImportIcon(aImage);
+	myAISContext->Display(ImportIcon,AIS_Shaded,0,Standard_False);
+	myViewer->Update();
+}

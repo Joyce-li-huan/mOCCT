@@ -26,7 +26,7 @@ void GeoSource::gpTest2(CmOCCTDoc* aDoc)
 	gp_Pnt p2(5,4,6);
 	gp_Vec V1(p1,p2);
 
-	DisplayPoint(aDoc, p2, "P2", false, 0.5);
+	DisplayPoint(aDoc, p2, "µãP2", false, 0.5);
 	Handle(ISession_Direction) aDirection1 = new ISession_Direction(p1, V1);
 	aDoc->GetAISContext()->Display(aDirection1, Standard_False);
 }
@@ -57,17 +57,18 @@ void GeoSource::DisplayPoint(CmOCCTDoc* theDoc,
 
 
 	
-	char* unicode = "";
-		UINT nCodePage = 936; //GB2312
-		int len = MultiByteToWideChar(nCodePage, 0, theText, -1, NULL, 0);
-		wchar_t* wstr = new wchar_t[len + 1];
-		memset(wstr, 0, len + 1);
-		MultiByteToWideChar(nCodePage, 0, theText, -1, wstr, len);
-		len = len * sizeof(wchar_t);
-		memcpy(unicode, wstr, len);
+	//char* unicode = "";
+	//	UINT nCodePage = 936; //GB2312
+	//	int len = MultiByteToWideChar(nCodePage, 0, theText, -1, NULL, 0);
+	//	wchar_t* wstr = new wchar_t[len + 1];
+	//	memset(wstr, 0, len + 1);
+	//	MultiByteToWideChar(nCodePage, 0, theText, -1, wstr, len);
+	//	len = len * sizeof(wchar_t);
+	//	memcpy(unicode, wstr, len);
 
 
-	aLabel->SetText(unicode);
+	aLabel->SetText(theText);
+	//aLabel->SetContext(theText);
 	aLabel->SetPosition(gp_Pnt(thePoint.X() + theXoffset, thePoint.Y() + theYoffset, thePoint.Z() + theZoffset));
 	aLabel->SetHeight (theTextScale);
 	aLabel->SetAngle(0);

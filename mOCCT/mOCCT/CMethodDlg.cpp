@@ -14,6 +14,7 @@ void CMethodDlg::DoDataExchange(CDataExchange* pDX)
 }
 BEGIN_MESSAGE_MAP(CMethodDlg,TemplateDlg)//继承temp的所有消息机制
 	ON_BN_CLICKED(IDOK, &CMethodDlg::OnBnClickedOk)//自己的机制
+	ON_COMMAND(ID_32839, &CMethodDlg::On32839)
 END_MESSAGE_MAP()
 
 void CMethodDlg::OnBnClickedOk()
@@ -31,3 +32,10 @@ void CMethodDlg::OnPaint()
 	CDialog::OnPaint();
 }
 
+
+
+void CMethodDlg::On32839()
+{
+	
+
+}

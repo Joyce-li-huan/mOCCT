@@ -72,6 +72,12 @@
     <ClInclude Include="AIS_Text.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="ConvertToString.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="AIS_ImportIcon.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mOCCT.cpp">
@@ -125,6 +131,12 @@
     <ClCompile Include="ISession_Direction.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="ConvertToString.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="AIS_ImportIcon.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="mOCCT.rc">
@@ -144,6 +156,9 @@
       <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\Toolbar.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\平面.ico">
       <Filter>资源文件</Filter>
     </Image>
   </ItemGroup>
