@@ -763,10 +763,8 @@ Handle(ISession_Coordinates) Coordinates = new ISession_Coordinates();
 
 	myAISContext->Display(Coordinates, Standard_False);
 	myAISContext->Deactivate(Coordinates);
-myViewer->Update();
+    myViewer->Update();
 }
-
-
 //加载图片
 void CmOCCTDoc::On32839()
 {

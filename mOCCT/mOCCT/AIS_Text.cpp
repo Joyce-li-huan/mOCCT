@@ -1,6 +1,22 @@
 #include "stdafx.h"
 #include "AIS_Text.h"
+#include <BRepTools.hxx>
 
+#include <Font_BRepFont.hxx>
+#include <Font_BRepTextBuilder.hxx>
+
+#pragma comment(lib, "TKernel.lib")
+#pragma comment(lib, "TKMath.lib")
+
+#pragma comment(lib, "TKG2d.lib")
+#pragma comment(lib, "TKG3d.lib")
+#pragma comment(lib, "TKGeomBase.lib")
+#pragma comment(lib, "TKGeomAlgo.lib")
+
+#pragma comment(lib, "TKBRep.lib")
+#pragma comment(lib, "TKTopAlgo.lib")
+
+#pragma comment(lib, "TKService.lib")
 
 AIS_Text::AIS_Text()
 {
@@ -14,14 +30,21 @@ void AIS_Text::Compute(const Handle(PrsMgr_PresentationManager3d)& thePresentati
 	const Handle(Prs3d_Presentation)& thePresentation,
 	const Standard_Integer theMode)
 {
-	Handle(Prs3d_TextAspect) anAsp = myDrawer->TextAspect();
-	gp_Pnt aTextPosition (0,0,0.);
+	//Handle(Prs3d_TextAspect) anAsp = myDrawer->TextAspect();
+	//gp_Pnt aTextPosition (0,0,0.);
 
-	Prs3d_Text::Draw(Prs3d_Root::CurrentGroup(thePresentation),anAsp,myText,aTextPosition);
+	//Prs3d_Text::Draw(Prs3d_Root::CurrentGroup(thePresentation),anAsp,myText,aTextPosition);
+
+	Font_BRepFont aBrepFont("C:/Windows/Fonts/arial.ttf", 3.5);
+	Font_BRepTextBuilder aTextBuilder;
+	TopoDS_Shape aTextShape = aTextBuilder.Perform(aBrepFont, NCollection_String("eryar@163.com"));
+
+//	BRepTools::Dump(aTextShape, std::cout);
+//	BRepTools::Write(aTextShape, "d:/text.brep");
 }
 
 
-void AIS_Text::SetText(Standard_CString & theText)
+void AIS_Text::SetText(TCollection_AsciiString & theText)
 {
 	myText = theText;
 }

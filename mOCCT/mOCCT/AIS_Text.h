@@ -14,7 +14,7 @@ private:
 		const Standard_Integer /*aMode*/) Standard_OVERRIDE { };
 public:
 	TCollection_ExtendedString myText;
-	void SetText(Standard_CString& aText);
+	void SetText(TCollection_AsciiString& aText);
 	void ConvertToUnicode(Standard_CString aText);
 	void SetHeight(const Standard_Real theHeight);
 };

@@ -73,6 +73,9 @@ void GeoSource::DisplayPoint(CmOCCTDoc* theDoc,
 	aLabel->SetHeight (theTextScale);
 	aLabel->SetAngle(0);
 	aLabel->SetZoomable(false);
+	aLabel->SetFont("ÖÐÎÄ");
+	aLabel->SetFontAspect(Font_FA_Undefined);
+	//aLabel->SetAspect();
 	
 	(void)theTextScale;
 	theDoc->GetAISContext()->Display(aLabel, theToUpdateViewer);

@@ -3,7 +3,7 @@ class AIS_ImportIcon :
 	public AIS_Shape
 {
 public:
-	Standard_EXPORT AIS_ImportIcon(TCollection_AsciiString& aFileName,
+	Standard_EXPORT AIS_ImportIcon(TCollection_AsciiString& ImportIcon,
 		const Standard_Real X = 0.0,
 		const Standard_Real Y = 0.0,
 		const Standard_Real aScale = 1.0);
@@ -12,6 +12,6 @@ private:
 	void MakeShape();
 protected:
 	TopoDS_Face myFace;
-	TCollection_AsciiString myFilename;
+	TCollection_AsciiString ImageIcon;
 };
 

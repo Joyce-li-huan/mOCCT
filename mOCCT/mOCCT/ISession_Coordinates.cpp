@@ -40,7 +40,7 @@ void ISession_Coordinates:: Compute(const Handle(PrsMgr_PresentationManager3d)& 
 	myGridCell->AddVertex(200, 200, 0.0);
 	aGroup->AddPrimitiveArray(myGridCell);
 
-	aGroup->Text("X", Graphic3d_Vertex(100,100, 0.0), 50);
+	aGroup->Text("X", Graphic3d_Vertex(0,0, 0.0), 50);
 
 }
 

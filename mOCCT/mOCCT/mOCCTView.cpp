@@ -59,24 +59,21 @@ BEGIN_MESSAGE_MAP(CmOCCTView, CView)
 	
 
 	ON_COMMAND(ID_32793, &CmOCCTView::On32793)
-	//ON_COMMAND(ID_DRAW_32820, &CmOCCTView::OnDraw32820)
 	ON_COMMAND(ID_GSL_SVD32824, &CmOCCTView::OnGslSvd32824)
 	ON_COMMAND(ID_GSL_TEST, &CmOCCTView::OnGslTest)
 	ON_COMMAND(ID_TNT_TEST, &CmOCCTView::OnTntTest)
 	ON_COMMAND(ID_MYDLL_BASIC, &CmOCCTView::OnMydllBasic)
 	ON_COMMAND(ID_MYDLL_CIRCLE2D, &CmOCCTView::OnMydllCircle2d)
 	ON_COMMAND(ID_32829, &CmOCCTView::On32829)
-	//ON_COMMAND(ID_32830, &CmOCCTView::On32830)
 	ON_COMMAND(ID_32830, &CmOCCTView::On32830)
 
 	ON_COMMAND(ID_32834, &CmOCCTView::On32834)
 	ON_COMMAND(ID_32835, &CmOCCTView::On32835)
 	ON_COMMAND(ID_32836, &CmOCCTView::On32836)
-	ON_COMMAND(ID_32837, &CmOCCTView::On32837)
 	ON_COMMAND(ID_HELP, &CmOCCTView::OnHelp)
 	ON_COMMAND(ID_32840, &CmOCCTView::On32840)
-	//ON_COMMAND(ID_32839, &CmOCCTView::On32839)
 	ON_COMMAND(ID_32841, &CmOCCTView::On32841)
+	ON_COMMAND(ID_32842, &CmOCCTView::On32842)
 END_MESSAGE_MAP()
 
 // CmOCCTView 构造/析构
@@ -847,11 +844,6 @@ void CmOCCTView::On32836()
 	myView->Pan(10, 10);
 }
 
-
-void CmOCCTView::On32837()
-{
-}
-
 #include "htmlhelp.h"
 void CmOCCTView::OnHelp()
 {
@@ -866,8 +858,8 @@ void CmOCCTView::OnHelp()
 
 void CmOCCTView::On32840()
 {
-	Standard_CString aText = "点";//"&#x70B9";// "\u70b9"
-
+	CString aText = L"点";//"&#x70B9";// "\u70b9"
+	TCollection_AsciiString Text((const wchar_t*)aText);
  /*   int len = MultiByteToWideChar(CP_ACP, 0, aText, -1, NULL, 0);
 	wchar_t* wstr = new wchar_t[len + 1];
 	memset(wstr, 0, len + 1);
@@ -879,33 +871,88 @@ void CmOCCTView::On32840()
 	
 
 	Handle(AIS_Text) aGraphicText = new AIS_Text();
-	aGraphicText->ConvertToUnicode(aText);
+	//aGraphicText->ConvertToUnicode(Text);
 	aGraphicText->SetHeight(1000);
-	aGraphicText->SetText(aText);
+	aGraphicText->SetText(Text);
 	Handle(AIS_InteractiveContext)ais_context = ((CmOCCTDoc*)GetDocument())->GetAISContext();
-	ais_context->Display(aGraphicText, Standard_True);
+	ais_context->Display(aGraphicText,Standard_True);
 	
 }
-
-//void CmOCCTView::On32839()
-//{
-	//CString str = _T("D:\\a.bmp");
-	//HBITMAP hBitmap = (HBITMAP)::LoadImage(NULL, str, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-	//CBitmap bitmap;
-	//bitmap.Attach(hBitmap);
-	//CPaintDC dc(this);
-	//CDC MemDC;
-	//MemDC.CreateCompatibleDC(&dc);
-	//MemDC.SelectObject(&bitmap);
-	//CRect rect;
-	//GetClientRect(&rect);
-	//dc.BitBlt(0, 0, rect.Width(), rect.Height(), &MemDC, 0, 0, SRCCOPY);
-
-//}
-
 
 void CmOCCTView::On32841()
 {
 	ConvertToString dlg;
 	dlg.DoModal();
+}
+
+
+
+
+
+
+
+
+
+
+#include<ft2build.h>
+#include FT_FREETYPE_H
+#pragma comment(lib,"freetype.lib")
+//freetype
+//v 包含头文件 Header Files;
+//v 库的初始化 Library Initialization;
+//v 加载字体 Loading a Font Face;
+//v 访问字体数据 Accessing the Face Data;
+//v 设置当前像素大小 Setting the Current Pixel Size;
+//v 加载文字 Loading a Glyph Image;
+//v 简单的显示 Simple Text Rendering；
+
+#include <BRepTools.hxx>
+
+#include <Font_BRepFont.hxx>
+#include <Font_BRepTextBuilder.hxx>
+
+#pragma comment(lib, "TKernel.lib")
+#pragma comment(lib, "TKMath.lib")
+
+#pragma comment(lib, "TKG2d.lib")
+#pragma comment(lib, "TKG3d.lib")
+#pragma comment(lib, "TKGeomBase.lib")
+#pragma comment(lib, "TKGeomAlgo.lib")
+
+#pragma comment(lib, "TKBRep.lib")
+#pragma comment(lib, "TKTopAlgo.lib")
+
+#pragma comment(lib, "TKService.lib")
+void CmOCCTView::On32842()
+{
+	FT_Face aFace = NULL;
+	FT_Library aLibrary = NULL;
+	FT_Init_FreeType(&aLibrary);
+
+	FT_New_Face(aLibrary, "C:/Windows/Fonts/arial.ttf", 0, &aFace);
+	FT_Set_Char_Size(aFace,0,16*64,300,300);
+
+	FT_UInt aGlyphIndex = FT_Get_Char_Index(aFace,'点');
+	FT_Load_Glyph(aFace,aGlyphIndex,FT_LOAD_DEFAULT);
+
+	FT_GlyphSlot aGlyphSlot = aFace->glyph;
+
+
+
+
+
+	//Font_BRepFont aBrepFont("C:/Windows/Fonts/arial.ttf", 3.5);
+	Font_BRepFont aBrepFont("C:/Windows/Fonts/方正粗黑宋简体.ttf", 35);
+	Font_BRepTextBuilder aTextBuilder;
+	TopoDS_Shape aTextShape = aTextBuilder.Perform(aBrepFont, NCollection_String("你哈 Joyce点"));
+
+	BRepTools::Dump(aTextShape, std::cout);
+	BRepTools::Write(aTextShape, "d:/text.brep");
+
+	Handle(AIS_Shape) text = new AIS_Shape(aTextShape);
+	Handle(AIS_InteractiveContext)ais_context = ((CmOCCTDoc*)GetDocument())->GetAISContext();
+	ais_context->Display(text, Standard_True);
+
+
+
 }

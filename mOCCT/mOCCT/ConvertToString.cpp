@@ -37,17 +37,14 @@ END_MESSAGE_MAP()
 // ConvertToString 消息处理程序
 void ConvertToString::OnBnClickedOk()
 {
-	const char* str="\u70b9";
+	const char* str="线";
 	char* Unicode=NULL;
-	
-
-
 	wchar_t* wstr = new wchar_t[20 / 2 + 1];
 	memcpy(wstr, str, 20);
 	int len = WideCharToMultiByte(CP_UTF8, 0, wstr, -1, NULL, 0, NULL, NULL);
 	WideCharToMultiByte(CP_UTF8, 0, wstr, -1, Unicode, len, NULL, NULL);
 
-	//int len1 = strlen(Unicode+5);
+	//char转换成CString
 	int Len = MultiByteToWideChar(CP_ACP, 0, Unicode, 20, NULL, 0);
 	TCHAR *buf = new TCHAR[Len+1];
 	MultiByteToWideChar(CP_ACP,0,Unicode,20,buf,Len);
@@ -57,4 +54,3 @@ void ConvertToString::OnBnClickedOk()
 	OutPut.Append(buf);
 	m_Unicode.SetWindowText(OutPut);
 }
-
