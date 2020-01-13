@@ -30,6 +30,7 @@
 
 #include"AIS_Text.h"
 #include"ConvertToString.h"
+#include<Resource_Unicode.hxx>
 gp_Pln agpPlane;
 // CmOCCTView
 
@@ -856,26 +857,118 @@ void CmOCCTView::OnHelp()
 }
 
 
+
+#include <Draw_Interpretor.hxx>
+#include<Quantity_Parameter.hxx>
+static int VDrawText(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+{
+	// Check arguments
+	if (argc < 14)
+	{
+		di << "Error: " << argv[0] << " - invalid number of arguments\n";
+		di << "Usage: type help " << argv[0] << "\n";
+		return 1; //TCL_ERROR
+	}
+
+
+	// Text position
+//	const Standard_Real X = Atof(argv[2]);
+//	const Standard_Real Y = Atof(argv[3]);
+//	const Standard_Real Z = Atof(argv[4]);
+//	const gp_Pnt pnt(X, Y, Z);
+
+	// Text color
+//	const Quantity_Parameter R = Atof(argv[5]) / 255.;
+//	const Quantity_Parameter G = Atof(argv[6]) / 255.;
+//	const Quantity_Parameter B = Atof(argv[7]) / 255.;
+//	const Quantity_Color aColor(R, G, B, Quantity_TOC_RGB);
+
+	// Text alignment
+//	const int hor_align = Atoi(argv[8]);
+//	const int ver_align =Atoi(argv[9]);
+
+	// Text angle
+	const Standard_Real angle = Atof(argv[10]);
+
+	// Text zooming
+	//const Standard_Boolean zoom =Atoi(argv[11]);
+
+	// Text height
+	const Standard_Real height = Atof(argv[12]);
+
+	// Text aspect
+	//const Font_FontAspect aspect = Font_FontAspect(Atoi(argv[13]));
+
+	// Text font
+	TCollection_AsciiString font;
+	if (argc < 15)
+		font.AssignCat("Courier");
+	else
+		font.AssignCat(argv[14]);
+
+	// Text is multibyte
+//	const Standard_Boolean isMultibyte = (argc < 16) ? Standard_False : (Atoi(argv[15]) != 0);
+
+	// Read text string
+	TCollection_ExtendedString name;
+	//if (isMultibyte)
+	//{
+		/* eryar modified 20140817 11:11
+	  const char *str = argv[1];
+	  while ( *str || *(str+1)=='\x0A' || *(str+1)=='\x0B' || *(str+1)=='\x0C' || *(str+1)=='\x0D'
+				   || *(str+1)=='\x07' || *(str+1)=='\x08' || *(str+1)=='\x09' )
+	  {
+		unsigned short c1 = *str++;
+		unsigned short c2 = *str++;
+		if (!c2) break;
+		name += (Standard_ExtCharacter)((c1 << 8) | c2);
+	  }
+	  */
+//		Resource_Unicode::ConvertGBToUnicode(argv[1], name);
+	//}
+//	else
+	//{
+	//	name += argv[1];
+	//}
+
+	if (name.Length())
+	{
+//		Handle(AIS_InteractiveContext)aContext = ((CmOCCTDoc*)GetDocument())->GetAISContext();
+//		Handle(AIS_Text) myT = new AIS_Text(name, pnt, aColor, angle, height,font.ToCString());
+	//	aContext->Display(myT, Standard_True);
+	}
+
+	return 0;
+}
+
+
+
 void CmOCCTView::On32840()
 {
-	CString aText = L"点";//"&#x70B9";// "\u70b9"
-	TCollection_AsciiString Text((const wchar_t*)aText);
- /*   int len = MultiByteToWideChar(CP_ACP, 0, aText, -1, NULL, 0);
-	wchar_t* wstr = new wchar_t[len + 1];
-	memset(wstr, 0, len + 1);
-	MultiByteToWideChar(CP_ACP, 0, aText, -1, wstr, len);
-	len = WideCharToMultiByte(CP_UTF8, 0, wstr, -1, NULL, 0, NULL, NULL);
-	char* str = new char[len + 1];
-	memset(str, 0, len + 1);
-	WideCharToMultiByte(CP_UTF8, 0, wstr, -1, str, len, NULL, NULL);*/
-	
+	Standard_CString aText = "点";//"&#x70B9";// "\u70b9"
 
-	Handle(AIS_Text) aGraphicText = new AIS_Text();
-	//aGraphicText->ConvertToUnicode(Text);
-	aGraphicText->SetHeight(1000);
-	aGraphicText->SetText(Text);
-	Handle(AIS_InteractiveContext)ais_context = ((CmOCCTDoc*)GetDocument())->GetAISContext();
-	ais_context->Display(aGraphicText,Standard_True);
+	TCollection_ExtendedString name;
+	const gp_Pnt pnt(0, 0, 0);
+//	const Quantity_Color aColor(255, 255, 255, Quantity_TOC_RGB);
+	const Standard_Real angle = 0;
+	const Standard_Real height = 100;
+
+	TCollection_AsciiString font;
+	
+	//if (argc < 15)
+	//	font.AssignCat("Courier");
+//	else
+		font.AssignCat("SimHei");
+
+	Resource_Unicode::ConvertGBToUnicode("P终于可以了-点", name);
+
+	Handle(AIS_InteractiveContext)aContext = ((CmOCCTDoc*)GetDocument())->GetAISContext();
+	Handle(AIS_Text) myT = new AIS_Text(name, pnt, angle, height, font.ToCString());
+	myT->SetFont();
+	myT->SetText(name);
+	myT->SetHeight(50);
+	myT->SetAngle();
+	aContext->Display(myT, Standard_True);
 	
 }
 
@@ -923,6 +1016,7 @@ void CmOCCTView::On32841()
 #pragma comment(lib, "TKTopAlgo.lib")
 
 #pragma comment(lib, "TKService.lib")
+#include<Resource_Unicode.hxx>
 void CmOCCTView::On32842()
 {
 	FT_Face aFace = NULL;
@@ -933,16 +1027,13 @@ void CmOCCTView::On32842()
 	FT_Set_Char_Size(aFace,0,16*64,300,300);
 
 	FT_UInt aGlyphIndex = FT_Get_Char_Index(aFace,'点');
-	FT_Load_Glyph(aFace,aGlyphIndex,FT_LOAD_DEFAULT);
+	//FT_Load_Glyph(aFace,aGlyphIndex,FT_LOAD_DEFAULT);
 
 	FT_GlyphSlot aGlyphSlot = aFace->glyph;
 
 
-
-
-
 	//Font_BRepFont aBrepFont("C:/Windows/Fonts/arial.ttf", 3.5);
-	Font_BRepFont aBrepFont("C:/Windows/Fonts/方正粗黑宋简体.ttf", 35);
+	Font_BRepFont aBrepFont("C:/Windows/Fonts/SimSun.ttf", 35);
 	Font_BRepTextBuilder aTextBuilder;
 	TopoDS_Shape aTextShape = aTextBuilder.Perform(aBrepFont, NCollection_String("你哈 Joyce点"));
 

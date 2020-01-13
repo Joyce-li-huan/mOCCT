@@ -4,7 +4,9 @@ class AIS_Text :
 	public AIS_InteractiveObject
 {
 public:
-	AIS_Text();
+	AIS_Text(TCollection_ExtendedString name,const gp_Pnt pnt,
+		const Standard_Real angle, const Standard_Real height,
+	 TCollection_AsciiString font);
 	~AIS_Text();
 private:
 	virtual void Compute(const Handle(PrsMgr_PresentationManager3d)& thePresentationManager,
@@ -13,9 +15,13 @@ private:
 	virtual void ComputeSelection(const Handle(SelectMgr_Selection)& /*aSelection*/,
 		const Standard_Integer /*aMode*/) Standard_OVERRIDE { };
 public:
-	TCollection_ExtendedString myText;
-	void SetText(TCollection_AsciiString& aText);
-	void ConvertToUnicode(Standard_CString aText);
+	TCollection_AsciiString    myFont;
+	TCollection_AsciiString myText;
+	void SetText(Standard_CString& aText);
+	void SetText(TCollection_ExtendedString& aText);
 	void SetHeight(const Standard_Real theHeight);
+	gp_Pnt aTextPosition;
+	void SetFont();
+	void SetAngle();
 };
 
