@@ -9,6 +9,8 @@ AIS_ImportIcon::AIS_ImportIcon(TCollection_AsciiString& ImportIcon,
 	:AIS_Shape(TopoDS_Shape())
 {
 	ImageIcon = ImportIcon;
+		SetTransformPersistence(new Graphic3d_TransformPers(Graphic3d_TMF_2d, Aspect_TOTP_LEFT_LOWER));
+	SetZLayer(Graphic3d_ZLayerId_TopOSD);
 
 }
 void AIS_ImportIcon::MakeShape()
@@ -31,7 +33,7 @@ void AIS_ImportIcon::SetContext(const Handle(AIS_InteractiveContext)& theContext
 	MakeShape();
 	this->Set(TopoDS_Shape(myFace));
 	myDrawer->SetShadingAspect(new Prs3d_ShadingAspect());
-	Handle(Graphic3d_Texture2Dmanual) aTexture = new Graphic3d_Texture2Dmanual(ImageIcon);
+ 	Handle(Graphic3d_Texture2Dmanual) aTexture = new Graphic3d_Texture2Dmanual(ImageIcon);
 	aTexture->DisableModulate();
 	myDrawer->ShadingAspect()->Aspect()->SetTextureMap(aTexture);
 	myDrawer->ShadingAspect()->Aspect()->SetTextureMapOn();

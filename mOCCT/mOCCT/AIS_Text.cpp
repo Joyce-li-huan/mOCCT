@@ -6,12 +6,13 @@
 #include <Font_BRepTextBuilder.hxx>
 #include<Resource_Unicode.hxx>
 
-AIS_Text::AIS_Text(TCollection_ExtendedString name, const gp_Pnt pnt,
-	const Standard_Real angle,  const Standard_Real height, TCollection_AsciiString font)
+//AIS_Text::AIS_Text(TCollection_ExtendedString name, const gp_Pnt pnt,
+//	const Standard_Real angle,  const Standard_Real height, TCollection_AsciiString font)
+AIS_Text::AIS_Text()
 	:myFont("SimHei")
 {
-	aTextPosition = pnt;
-	myText = name;
+	//aTextPosition = pnt;
+	//myText = name;
 	
 	myDrawer->SetTextAspect(new Prs3d_TextAspect());
 }
@@ -30,7 +31,6 @@ void AIS_Text::Compute(const Handle(PrsMgr_PresentationManager3d)& thePresentati
 
 void AIS_Text::SetText(TCollection_ExtendedString & theText)
 {
-	//Resource_Unicode::ConvertGBToUnicode("Kµã", theText);
 	myText = theText;
 }
 void AIS_Text::SetText(Standard_CString & theText)

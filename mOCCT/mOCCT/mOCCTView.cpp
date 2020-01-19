@@ -950,20 +950,21 @@ void CmOCCTView::On32840()
 	TCollection_ExtendedString name;
 	const gp_Pnt pnt(0, 0, 0);
 //	const Quantity_Color aColor(255, 255, 255, Quantity_TOC_RGB);
-	const Standard_Real angle = 0;
-	const Standard_Real height = 100;
+	//const Standard_Real angle = 0;
+	//const Standard_Real height = 100;
 
-	TCollection_AsciiString font;
+	//TCollection_AsciiString font;
 	
 	//if (argc < 15)
 	//	font.AssignCat("Courier");
 //	else
-		font.AssignCat("SimHei");
+	//	font.AssignCat("SimHei");
 
 	Resource_Unicode::ConvertGBToUnicode("P终于可以了-点", name);
 
 	Handle(AIS_InteractiveContext)aContext = ((CmOCCTDoc*)GetDocument())->GetAISContext();
-	Handle(AIS_Text) myT = new AIS_Text(name, pnt, angle, height, font.ToCString());
+	//Handle(AIS_Text) myT = new AIS_Text(name, pnt, angle, height, font.ToCString());
+	Handle(AIS_Text) myT = new AIS_Text();
 	myT->SetFont();
 	myT->SetText(name);
 	myT->SetHeight(50);

@@ -144,4 +144,5 @@ public:
 	afx_msg void On32837();
 
 	afx_msg void On32839();
+	afx_msg void On32845();
 };

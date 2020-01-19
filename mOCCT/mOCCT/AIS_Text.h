@@ -4,9 +4,10 @@ class AIS_Text :
 	public AIS_InteractiveObject
 {
 public:
-	AIS_Text(TCollection_ExtendedString name,const gp_Pnt pnt,
+	/*AIS_Text(TCollection_ExtendedString name,const gp_Pnt pnt,
 		const Standard_Real angle, const Standard_Real height,
-	 TCollection_AsciiString font);
+	 TCollection_AsciiString font);*/
+	AIS_Text();
 	~AIS_Text();
 private:
 	virtual void Compute(const Handle(PrsMgr_PresentationManager3d)& thePresentationManager,

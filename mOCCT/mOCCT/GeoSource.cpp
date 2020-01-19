@@ -69,7 +69,7 @@ void GeoSource::DisplayPoint(CmOCCTDoc* theDoc,
 
 	aLabel->SetText(theText);
 	//aLabel->SetContext(theText);
-	aLabel->SetPosition(gp_Pnt(thePoint.X() + theXoffset, thePoint.Y() + theYoffset, thePoint.Z() + theZoffset));
+	aLabel->SetPosition(gp_Pnt(110, 60, thePoint.Z() + theZoffset));
 	aLabel->SetHeight (theTextScale);
 	aLabel->SetAngle(0);
 	aLabel->SetZoomable(false);
