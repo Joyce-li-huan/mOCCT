@@ -783,6 +783,6 @@ void CmOCCTDoc::On32839()
 void CmOCCTDoc::On32845()
 {
 
-
+	
 
 }

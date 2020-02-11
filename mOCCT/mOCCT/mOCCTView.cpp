@@ -75,6 +75,7 @@ BEGIN_MESSAGE_MAP(CmOCCTView, CView)
 	ON_COMMAND(ID_32840, &CmOCCTView::On32840)
 	ON_COMMAND(ID_32841, &CmOCCTView::On32841)
 	ON_COMMAND(ID_32842, &CmOCCTView::On32842)
+	ON_COMMAND(ID_32846, &CmOCCTView::On32846)
 END_MESSAGE_MAP()
 
 // CmOCCTView 构造/析构
@@ -194,7 +195,7 @@ void CmOCCTView::OnMouseMove(UINT nFlags, CPoint point)
 		//选转
 		if (m_Rota == TRUE)
 		{
-			myView->Rotate(point.x-myXmax, myYmax-point.y);
+			myView->Rotate(point.x, point.y);
 			myXmax = point.x;
 			myYmax = point.y;
 			//myView->Redraw();
@@ -301,6 +302,8 @@ void CmOCCTView::OnLButtonDown(UINT nFlags, CPoint point)
 	//else
 		GetDocument()->DragEvent(myXmax, myYmax, -1, myView);
 	//	ConvertClickToPoint(point.x,point.y,myView);
+		m_Rota = TRUE;
+		myView->StartRotation(point.x, point.y);
 }
 
 //缩放
@@ -328,6 +331,7 @@ void CmOCCTView::On32778()
 void CmOCCTView::On32779()
 {
 	// TODO: 在此添加命令处理程序代码
+
 	m_Rota= TRUE;
 	m_Zoom = FALSE;
 }
@@ -1047,4 +1051,34 @@ void CmOCCTView::On32842()
 
 
 
+}
+
+//背景色设置
+void CmOCCTView::On32846()
+{
+	Standard_Real R1;
+	Standard_Real G1;
+	Standard_Real B1;
+	myView->BackgroundColor(Quantity_TOC_RGB, R1, G1, B1);
+	COLORREF m_clr;
+	m_clr = RGB(R1 * 255, G1 * 255, B1 * 255);
+
+	CColorDialog dlgColor(m_clr);
+	if (dlgColor.DoModal() == IDOK)
+	{
+		m_clr = dlgColor.GetColor();
+		R1 = GetRValue(m_clr) / 255.;
+		G1 = GetGValue(m_clr) / 255.;
+		B1 = GetBValue(m_clr) / 255.;
+		
+		//直接修改背景色
+		//myView->SetBackgroundColor(Quantity_TOC_RGB, R1, G1, B1);
+		
+		//渐变色
+		myView->SetBgGradientColors(Quantity_Color(R1 / 255.0, G1 / 255.0, B1 / 255.0, Quantity_TOC_RGB),
+			Quantity_Color(R1, G1, B1, Quantity_TOC_RGB),
+			Aspect_GFM_VER,
+			Standard_True);
+	}
+	myView->Redraw();
 }
